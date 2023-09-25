@@ -1,0 +1,12 @@
+
+/* <link href="main.css" rel="stylesheet"> : put it in index.html <head></head>*/
+
+.border-left-secondary {
+    border-left-color: coral !important;
+}
+
+.text-gray-100{
+color:coral !important;
+}
+
+
