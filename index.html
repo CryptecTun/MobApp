@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1">
+    <title>Systems Finder</title>
+    <link rel="stylesheet" href="loading.css">
+</head>
+<body>
+    <div class="loading-area">
+        <span id="textLoad" class="loader glow">Loading...</span>
+        <span class="load_anim1"></span>
+        <span class="load_anim2"></span>
+    </div>
+    <script type="text/javascript">
+
+        var url = '';
+        cpt_ = 0;
+        function xhrRequest(){
+            cpt_+=1;
+            console.log(this.status);
+			status = "200";
+            //alert(status);
+            if(cpt_ > 1){
+                window.location.replace(url);// window.location.replace(url);
+            }
+        }
+        function getReq(url){
+            var oReq = new XMLHttpRequest();
+            oReq.addEventListener("load", xhrRequest);
+            oReq.open("GET", url);
+            oReq.send();
+            console.log(oReq);
+        }
+
+        var intervalId3 = window.setInterval(function(){
+            fetch('update.json')
+                .then(response => response.json())
+                .then(data => {
+                    url = `${data.http}`;
+                    console.log(data);
+                    console.log(url);
+                    if(document.getElementById("textLoad").innerHTML == "Loading..."){
+                        console.log("=loading...");
+                        document.getElementById("textLoad").innerHTML = `${data.time_and_date}`;
+                    }
+                    else if(document.getElementById("textLoad").innerHTML != "Loading..."){
+                        console.log("!=loading...");
+                        document.getElementById("textLoad").innerHTML = "Loading...";
+                    }
+                });
+		    var status = "404";
+            getReq(url);
+            if (status=="404"){
+				console.log(status);
+                //window.location.replace('./DuckHunt/dist/');
+			}
+        }, 4000);
+    </script>
+</body> 
+</html>
